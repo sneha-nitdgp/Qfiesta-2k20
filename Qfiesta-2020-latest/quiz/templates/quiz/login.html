@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAE-Quiz-2k20</title>
+    <link rel="stylesheet"  href="{% static '/quiz/css/login.css' %}">
+    <script src="https://kit.fontawesome.com/aa95c4d108.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="main">
+        <input type="checkbox" id="chk" aria-hidden="true">
+
+        <div class="signup">
+           <form method="POST" action="{% url 'social:begin' 'google-oauth2' %}">
+               <label for="chk" aria-hidden="true">Signup</label>
+                <input type="text" name="txt" placeholder="Name" required="">
+               <input type="email" name="email" placeholder="Email" required>
+               <input type="Password" name="pswd" placeholder="Password" required="">
+               <button type="submit">Sign Up</button>
+
+           </form>
+            <a style="text-decoration: none;" href="{% url 'social:begin' 'google-oauth2' %}">
+                <button id="google">Login with Google</button>
+                </a>
+        </div>
+
+        <div class="login">
+            <form method="POST" action="{% url 'social:begin' 'google-oauth2' %}">
+                <label for="chk" aria-hidden="true">Login</label>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="Password" name="pswd" placeholder="Password" required="">
+                <button>Login</button>
+
+            </form>
+            <a style="text-decoration: none" href="{% url 'social:begin' 'google-oauth2' %}">
+                <button id="google">Login with Google</button>
+                </a>
+        </div>
+
+    </div>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r123/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.21/vanta.birds.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.21/vanta.fog.min.js"></script>
+    <script>
+    VANTA.FOG({
+      el: "body",
+      mouseControls: true,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  highlightColor: 0x32e48,
+  midtoneColor: 0x1344d,
+  lowlightColor: 0x0,
+  baseColor: 0x338ac5,
+
+      speed:4.90
+    });
+    </script>
+</body>

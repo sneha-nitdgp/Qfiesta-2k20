@@ -1,0 +1,222 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Qfiesta</title>
+
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'quiz/endpage.css'%}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<style>
+
+
+
+tr.separated td {
+    /* set border style for separated rows */
+    border-bottom: 2px solid white;
+
+}
+table {
+color:white;
+  font-family: 'Share Tech', sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+
+}
+
+td, th {
+  border: 0px solid #dddddd;
+   font-size:15px;
+  text-align: left;
+  padding: 16px;
+}
+
+tr:hover {
+font-weight:bold;
+color:white;
+}
+
+
+body  {
+
+  background-image: url("{% static './quiz/images/background.png' %}");
+  min-height: 500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cards_item {
+  display: flex;
+  padding: 1rem;
+}
+.avatar {
+  vertical-align: middle;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+@media (min-width: 40rem) {
+  .cards_item {
+    width: 50%;
+  }
+}
+
+@media (min-width: 56rem) {
+  .cards_item {
+    width: 33.3333%;
+  }
+}
+
+.card {
+  background-color: transparent;
+  border:2px solid white;
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.card_content {
+ background-color: transparent;
+
+  opacity: 0.8;
+  padding: 1rem;
+
+}
+
+.card_title {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  margin: 0px;
+}
+
+.card_text {
+  color: white;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  font-weight: 400;
+}
+
+
+
+</style>
+</head>
+<body>
+
+ <nav class="navbar">
+    <div class="content1">
+      <div class="logo" >
+        <a href="/">QFIESTA</a>
+      </div>
+      <ul class="menu-list">
+        <div class="icon cancel-btn">
+          <i class="fas fa-times"></i>
+        </div>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#sectionthree">Rules</a></li>
+        {% if user.is_authenticated %}
+          <li><a href="/get_question">Play</a></li>
+        {% endif %}
+        {% if user.is_authenticated %}
+        <li><a href="/signout">Logout</a></li>
+        {% endif %}
+        </ul>
+      <div class="icon menu-btn">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </nav>
+
+
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+
+ <div class="tabls" >
+
+<br>
+     <br>
+
+<h1 style="font-size:40px;text-align:center;color:white;font-family: 'Share Tech', sans-serif;">LEADERBOARD</h1>
+
+     <br>
+     <br>
+<table style="width:60%;margin:auto;font-family: 'Share Tech', sans-serif;">
+  <tr>
+    <th >Position</th>
+    <th> Image</th>
+    <th>Name</th>
+    <th>Points</th>
+  </tr>
+
+    {% for person in people %}
+  <tr class="separated">
+    <td>{{forloop.counter}}</td>
+    <td> <img src="{{person.image}}" class="avatar"></td>
+    <td>{{person.username}}</td>
+    <td>{{person.score}}</td>
+  </tr>
+{% endfor %}
+</table>
+
+
+
+        </div>
+
+
+
+  <script>
+    const body = document.querySelector("body");
+    const navbar = document.querySelector(".navbar");
+    const menuBtn = document.querySelector(".menu-btn");
+    const cancelBtn = document.querySelector(".cancel-btn");
+    menuBtn.onclick = ()=>{
+      navbar.classList.add("show");
+      menuBtn.classList.add("hide");
+      body.classList.add("disabled");
+    }
+    cancelBtn.onclick = ()=>{
+      body.classList.remove("disabled");
+      navbar.classList.remove("show");
+      menuBtn.classList.remove("hide");
+    }
+    window.onscroll = ()=>{
+      this.scrollY > 20 ? navbar.classList.add("sticky") : navbar.classList.remove("sticky");
+    }
+  </script>
+
+
+
+
+
+        </div>
+
+    </div>
+ </div>
+
+</body>
+</html>

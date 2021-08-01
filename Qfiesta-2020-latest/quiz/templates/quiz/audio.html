@@ -1,0 +1,300 @@
+{% load static %}
+
+<!DOCTYPE html>
+<!-- Created By CodingNepal - www.codingnepalweb.com -->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--  <title>Responsive Sticky Navbar | CodingNepal</title> -->
+  <link rel="stylesheet" href="{% static 'quiz/style1.css'%}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Qfiesta</title>
+
+
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script src="{% static 'quiz/js/wavesurfer.js' %}"></script>
+
+  <style>
+    .placeicons {
+      font-family: FontAwesome;
+    }
+
+    body {
+      height: 135vh;
+      background:url("{% static './quiz/images/background.png' %}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    @media(max-width:768 px) {
+      body {
+        height: 150vh;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="loader-bg">
+    <div class="loader">
+      <span style="--i:1;"></span>
+      <span style="--i:2;"></span>
+      <span style="--i:3;"></span>
+      <span style="--i:4;"></span>
+      <span style="--i:5;"></span>
+      <span style="--i:6;"></span>
+      <span style="--i:7;"></span>
+      <span style="--i:8;"></span>
+      <span style="--i:9;"></span>
+      <span style="--i:10;"></span>
+      <span style="--i:11;"></span>
+      <span style="--i:12;"></span>
+      <span style="--i:13;"></span>
+      <span style="--i:14;"></span>
+      <span style="--i:15;"></span>
+
+      <span style="--i:16;"></span>
+      <span style="--i:17;"></span>
+      <span style="--i:18;"></span>
+      <span style="--i:19;"></span>
+      <span style="--i:20;"></span>
+      <div class="rocket"></div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    setTimeout(function () {
+      $('.loader-bg').fadeToggle();
+
+    }, 1000);
+
+  </script>
+  <nav class="navbar">
+    <div class="content1">
+      <div class="logo">
+        <a href="#">QFIESTA</a>
+      </div>
+      <ul class="menu-list">
+        <div class="icon cancel-btn">
+          <i class="fas fa-times"></i>
+        </div>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#sectionthree">Rules</a></li>
+        <li><a href="/leaderboard">Leaderboard</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="/signout">Logout</a></li>
+        {% endif %}
+      </ul>
+      <div class="icon menu-btn">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="main-wrapper">
+    <div class="timer-wrapper">
+      <div class="timer-section">
+        <div id="min-dozens" class="timer" style="color: #fff">2</div>
+        <div id="min-unity" class="timer" style="color: #fff">0</div>
+      </div>
+
+      <div class="timer-section">
+        <div id="sec-dozens" class="timer" style="color: #fff">0</div>
+        <div id="sec-unity" class="timer" style="color: #fff">0</div>
+      </div>
+    </div>
+  </div>
+  <div class="" id="timermy"></div>
+
+  <div class="container">
+    <div class="box">
+      <div class="content">
+        <h2 style="font-size:32px;margin-top:50px;"> Question : {{round.round}}</h2>
+        <hr style="height:2px;border-width:2px;color:#ffff00;background-color:#ffff00">
+        <p>
+          {{question.round}}
+        </p>
+        <div class="audio-player">
+          <div id="audio-spectrum" style="  margin: 30px!important;
+"></div>
+          <input type="button" class="placeicons" id="btn-play"
+            style="color:#fff;border-color:transparent; border-radius:50%; background:transparent; margin-left: 30px;font-size: 50px"
+            placeholder="&#xf144;" value="&#xf144;" disabled="disabled" />
+          <input type="button" class="placeicons" id="btn-pause"
+            style=" color: #fff; border-color:transparent; border-radius:50%;background:transparent; margin-left: 30px;font-size: 50px"
+            placeholder="&#xf28b;" value="&#xf28b; " disabled="disabled" />
+          <input type="button" class="placeicons" id="btn-stop"
+            style=" color: #fff;border-color:transparent;border-radius:70%; background:transparent; margin-left: 12px;font-size: 50px"
+            placeholder="&#xf28d;" value=" &#xf28d;
+  " disabled="disabled" />
+        </div>
+
+        <p>{{round.question}}</p>
+        <form method="post" action="">
+          {% csrf_token %}
+
+          <input type="text" id="subject" name="answers" placeholder="Your Answer Here.."
+            style="height:40px;width:300px; color: #fff;"></input>
+          <br>
+
+          <input type="submit" value="Submit"
+            style="color: #fff;font-size:15px;padding:5px;height:40px;width:100px;border: 4px solid #fff;">
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <svg>
+    <filter id="wavy">
+      <feTurbulence x="0" y="0" baseFrequency="0.02" numOctaves="5" seed="2">
+        <animate attributeName="baseFrequency" dur="60s" values="0.02;0.05;0.02" repeatCount="indifinite" />
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" scale="30" />
+    </filter>
+  </svg>
+  <script>
+    var buttons = {
+      play: document.getElementById("btn-play"),
+      pause: document.getElementById("btn-pause"),
+      stop: document.getElementById("btn-stop")
+    };
+
+    // Create an instance of wave surfer with its configuration
+    var Spectrum = WaveSurfer.create({
+      container: '#audio-spectrum',
+      progressColor: "#03a9f4",
+      scrollParent: true,
+      autoCentre: true,
+      barHeight: 2,
+      barWidth: 2,
+      barRadius: 2,
+      hideScrollbar: true,
+
+
+    });
+
+    // Handle Play button
+    buttons.play.addEventListener("click", function () {
+      Spectrum.play();
+
+      // Enable/Disable respectively buttons
+      buttons.stop.disabled = false;
+      buttons.pause.disabled = false;
+      buttons.play.disabled = true;
+    }, false);
+
+    // Handle Pause button
+    buttons.pause.addEventListener("click", function () {
+      Spectrum.pause();
+
+      // Enable/Disable respectively buttons
+      buttons.pause.disabled = true;
+      buttons.play.disabled = false;
+    }, false);
+
+
+    // Handle Stop button
+    buttons.stop.addEventListener("click", function () {
+      Spectrum.stop();
+
+      // Enable/Disable respectively buttons
+      buttons.pause.disabled = true;
+      buttons.play.disabled = false;
+      buttons.stop.disabled = true;
+    }, false);
+
+
+    // Add a listener to enable the play button once it's ready
+    Spectrum.on('ready', function () {
+      buttons.play.disabled = false;
+    });
+
+    // If you want a responsive mode (so when the user resizes the window)
+    // the spectrum will be still playable
+    window.addEventListener("resize", function () {
+      // Get the current progress according to the cursor position
+      var currentProgress = Spectrum.getCurrentTime() / Spectrum.getDuration();
+
+      // Reset graph
+      Spectrum.empty();
+      Spectrum.drawBuffer();
+      // Set original position
+      Spectrum.seekTo(currentProgress);
+
+      // Enable/Disable respectively buttons
+      buttons.pause.disabled = true;
+      buttons.play.disabled = false;
+      buttons.stop.disabled = false;
+    }, false);
+
+    // Load the audio file from your domain !
+    Spectrum.load('{{ file }}');
+    window.onload = function () {
+      let time = localStorage.getItem('time')
+      console.log(time)
+      if (time) {
+        // A localstorage Element present
+
+      } else {
+        //The page loads for the first time
+        time = 20 * 60
+      }
+      var interval = setInterval(timer, 1000);
+
+      function timer() {
+        //console.log("hello");
+        if (time <= 0) {
+          clearInterval(interval);
+          localStorage.removeItem('time');
+          console.log("deleted");
+          setTimeout(function () {
+            console.log("redirecting");
+            window.location.replace("/timeout");
+          }, 100);
+        } else {
+          time -= 1;
+          localStorage.setItem('time', time);
+           let min=Math.floor(time/60);
+          let min2 = min%10;
+          let min1=Math.floor(min/10);
+
+          console.log(time)
+          let sec = time % 60;
+          let sec1 = Math.floor(sec / 10);
+          let sec2 = sec % 10;
+          document.getElementById("min-unity").innerHTML = min2;
+ document.getElementById("min-dozens").innerHTML = min1;
+
+          document.getElementById("sec-dozens").innerHTML = sec1;
+          document.getElementById("sec-unity").innerHTML = sec2;
+        }
+
+      }
+    }
+    // Store the 3 buttons in some object
+
+    const body = document.querySelector("body");
+    const navbar = document.querySelector(".navbar");
+    const menuBtn = document.querySelector(".menu-btn");
+    const cancelBtn = document.querySelector(".cancel-btn");
+    menuBtn.onclick = () => {
+      navbar.classList.add("show");
+      menuBtn.classList.add("hide");
+      body.classList.add("disabled");
+    }
+    cancelBtn.onclick = () => {
+      body.classList.remove("disabled");
+      navbar.classList.remove("show");
+      menuBtn.classList.remove("hide");
+    }
+    window.onscroll = () => {
+      this.scrollY > 20 ? navbar.classList.add("sticky") : navbar.classList.remove("sticky");
+    }
+  </script>
+</body>

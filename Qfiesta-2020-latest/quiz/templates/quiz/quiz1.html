@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<!-- Created By CodingNepal - www.codingnepalweb.com -->
+<html lang="en">
+<head>
+  <style>
+      body{
+        height: 100vh;
+        background:url("{% static './quiz/images/background.png' %}");
+        background-size: cover;
+        background-attachment: fixed;
+        background-position : center;
+        background-repeat : no-repeat;
+        }
+
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--  <title>Responsive Sticky Navbar | CodingNepal</title> -->
+    <link rel="stylesheet" href="{% static 'quiz/endpage.css'%}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <title>Qfiesta</title>
+    zz
+</head>
+<body>
+  <nav class="navbar">
+    <div class="content1">
+      <div class="logo">
+        <a href="#">QFIESTA</a>
+      </div>
+      <ul class="menu-list">
+        <div class="icon cancel-btn">
+          <i class="fas fa-times"></i>
+        </div>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#sectionthree">Rules</a></li>
+        <li><a href="/leaderboard">Leaderboard</a></li>
+      </ul>
+      <div class="icon menu-btn">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </nav>
+
+
+<div class="wrapper">
+    <div class="modal modal--congratulations" style=" background:rgba(225,225,225,.1);">
+        <div class="modal-top">
+            <img class="modal-icon u-imgResponsive" src="{% static '/quiz/images/tick.png' %}" alt="Trophy" />
+            <div class="modal-header">Correct Answer</div>
+            <div class="modal-subheader">YOUR SCORE IS : {{user.profile.score}}</div>
+            <form action="/get_question">
+              
+          <button onclick="clearCache()"  value="Move To Next Question" style="background-color:black;color: #fff;margin:5px;padding:5px;height:40px;width:250px;border: 4px solid #fff;border-radius: 12px;font-size: 20px;">PROCEED</button>
+        </form>
+        </div>
+        
+   </div>
+  </div>
+ 
+<svg>
+  <filter id="wavy">
+    <feTurbulence x="0" y="0" baseFrequency="0.02" numOctaves="5" seed= "2">
+      <animate attributeName="baseFrequency" dur="60s" values="0.02;0.05;0.02" repeatCount="indifinite"/>
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" scale="30"/>
+  </filter>
+</svg>
+
+
+
+  <script>
+
+function clearCache() {
+      localStorage.removeItem('time');
+      window.location.replace("/get_question");
+    }
+    const body = document.querySelector("body");
+    const navbar = document.querySelector(".navbar");
+    const menuBtn = document.querySelector(".menu-btn");
+    const cancelBtn = document.querySelector(".cancel-btn");
+    menuBtn.onclick = ()=>{
+      navbar.classList.add("show");
+      menuBtn.classList.add("hide");
+      body.classList.add("disabled");
+    }
+    cancelBtn.onclick = ()=>{
+      body.classList.remove("disabled");
+      navbar.classList.remove("show");
+      menuBtn.classList.remove("hide");
+    }
+    window.onscroll = ()=>{
+      this.scrollY > 20 ? navbar.classList.add("sticky") : navbar.classList.remove("sticky");
+    }
+  </script>
